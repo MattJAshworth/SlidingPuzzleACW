@@ -13,14 +13,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.mattjamesashworth.android.slidingacw.Class.Managers.GameManager;
+import com.mattjamesashworth.android.slidingacw.Class.Handlers.GameHandler;
 import com.mattjamesashworth.android.slidingacw.Class.Puzzle;
 import com.mattjamesashworth.android.slidingacw.R;
 
@@ -30,7 +29,7 @@ import com.mattjamesashworth.android.slidingacw.R;
  */
 
 
-public class playGameActivity extends AppCompatActivity {
+public class PlayActivity extends AppCompatActivity {
     // variables populated before being able to play
     private int m_SelectedPuzzle;
     private int m_LastPuzzlePosition;
@@ -43,7 +42,7 @@ public class playGameActivity extends AppCompatActivity {
         m_View = this.findViewById(android.R.id.content); // store root view
 
         //Transition Animations
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.frags);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.content);
         AnimationDrawable animationDrawable;
         animationDrawable =(AnimationDrawable) linearLayout.getBackground();
         animationDrawable.setEnterFadeDuration(5000);
@@ -64,13 +63,13 @@ public class playGameActivity extends AppCompatActivity {
                 getResources().getString(R.string.less_then_24_cards)
         };
 
-        fullPuzzleList = GameManager.getPuzzleList();
-        setupSelections(GameManager.getListOfPuzzleIDs());
+        fullPuzzleList = GameHandler.getPuzzleList();
+        setupSelections(GameHandler.getListOfPuzzleIDs());
         Button downloadButton = (Button) findViewById(R.id.button_download_more_puzzles);
         downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), downloadActivity.class);
+                Intent intent = new Intent(view.getContext(), DownloadJsonActivity.class);
                 startActivityForResult(intent, 1);
             }
         });
@@ -87,8 +86,8 @@ public class playGameActivity extends AppCompatActivity {
         clickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //   GameManager.setGameMode(GameManager.GameMode.MODE_CLICK);
-                //   Log.i("[Game Mode Change]", GameManager.getGameMode().toString());
+                //   GameHandler.setGameMode(GameHandler.GameMode.MODE_CLICK);
+                //   Log.i("[Game Mode Change]", GameHandler.getGameMode().toString());
             }
         });
 
@@ -96,8 +95,8 @@ public class playGameActivity extends AppCompatActivity {
         dragButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //    GameManager.setGameMode(GameManager.GameMode.MODE_DRAG);
-                //   Log.i("[Game Mode Change]", GameManager.getGameMode().toString());
+                //    GameHandler.setGameMode(GameHandler.GameMode.MODE_DRAG);
+                //   Log.i("[Game Mode Change]", GameHandler.getGameMode().toString());
             }
         });
 
@@ -105,7 +104,7 @@ public class playGameActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        setupSelections( GameManager.getListOfPuzzleIDs() );
+        setupSelections( GameHandler.getListOfPuzzleIDs() );
     }
 
     String[] filterTypes;
@@ -196,10 +195,10 @@ public class playGameActivity extends AppCompatActivity {
         playBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), playingActivity.class);
+                Intent intent = new Intent(view.getContext(), InGameActivity.class);
 
                 Puzzle selected_puzzle = null;
-                for(Puzzle puzzle : GameManager.getPuzzleList()) {
+                for(Puzzle puzzle : GameHandler.getPuzzleList()) {
                     if (puzzle.puzzle == m_SelectedPuzzle)
                         selected_puzzle = puzzle;
                 }
@@ -223,10 +222,10 @@ public class playGameActivity extends AppCompatActivity {
         List<String> puzzleText = new ArrayList<>();
         for(Integer id : puzzleIDList) {
             puzzleListViewIdList.add(id);
-            Puzzle temp = GameManager.getPuzzleByID(id);
+            Puzzle temp = GameHandler.getPuzzleByID(id);
             puzzleList.add(temp);
            /* SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(String.valueOf(id), MODE_PRIVATE); // get shared preference
-            int highScore = sharedPreferences.getInt(playingActivity.HIGH_SCORE, 0); // retrieve highscore
+            int highScore = sharedPreferences.getInt(InGameActivity.HIGH_SCORE, 0); // retrieve highscore
             if( highScore > 0 )
                 text += " - "+ getResources().getString(R.string.high_score)+": "+highScore; // if highscore exist, append to original text
 */

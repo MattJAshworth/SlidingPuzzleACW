@@ -1,4 +1,4 @@
-package com.mattjamesashworth.android.slidingacw.Class.Managers;
+package com.mattjamesashworth.android.slidingacw.Class.Handlers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,7 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mattjamesashworth.android.slidingacw.Activity.playingActivity;
+import com.mattjamesashworth.android.slidingacw.Activity.InGameActivity;
 import com.mattjamesashworth.android.slidingacw.Class.Puzzle;
 import com.mattjamesashworth.android.slidingacw.Class.PuzzleImage;
 import com.mattjamesashworth.android.slidingacw.Class.PuzzlePictureSet;
@@ -22,11 +22,11 @@ import com.mattjamesashworth.android.slidingacw.Class.PuzzlePictureSet;
  * Created by mattjashworth on 21/03/2018.
  */
 
-public class GameManager {
-    //private static GameManager ourInstance = new GameManager();
-    private static GameManager ourInstance;
+public class GameHandler {
+    //private static GameHandler ourInstance = new GameHandler();
+    private static GameHandler ourInstance;
 
-    public static GameManager getInstance() {
+    public static GameHandler getInstance() {
         return ourInstance;
     }
 
@@ -49,7 +49,7 @@ public class GameManager {
     public static void setGameMode(GameMode gameMode){
         m_GameMode = gameMode;
     }
-    public GameManager(Context context, Map<String, String> jsonList) {
+    public GameHandler(Context context, Map<String, String> jsonList) {
         if( !m_Init) {
             m_Init = true;
             ProcessJsons(jsonList);
@@ -57,7 +57,7 @@ public class GameManager {
             // load existing puzzle scores
             for(Puzzle p : m_Puzzles) {
                 SharedPreferences sharedPreferences = context.getSharedPreferences(String.valueOf(p.puzzle), Context.MODE_PRIVATE); // get shared preference
-                int highScore = sharedPreferences.getInt(playingActivity.HIGH_SCORE, 0); // retrieve highscore
+                int highScore = sharedPreferences.getInt(InGameActivity.HIGH_SCORE, 0); // retrieve highscore
                 if( highScore > 0 )
                     p.puzzle_High_Score = highScore;
             }
@@ -165,7 +165,7 @@ public class GameManager {
     }
 
     public static PuzzlePictureSet ReadPictureSetFromJson(String key, String value) {
-        List<PuzzleImage> imageList = ImageManager.getImageList();
+        List<PuzzleImage> imageList = ImageHandler.getImageList();
         PuzzlePictureSet newSet = null;
         try {
             JSONObject jOb = new JSONObject(value);

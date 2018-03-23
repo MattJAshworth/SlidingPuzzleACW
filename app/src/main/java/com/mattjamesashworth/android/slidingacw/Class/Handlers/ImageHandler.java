@@ -1,4 +1,4 @@
-package com.mattjamesashworth.android.slidingacw.Class.Managers;
+package com.mattjamesashworth.android.slidingacw.Class.Handlers;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -24,22 +24,22 @@ import com.mattjamesashworth.android.slidingacw.Class.PuzzleImage;
  * Created by mattjashworth on 21/03/2018.
  */
 
-public class ImageManager {
-    //private static ImageManager ourInstance = new ImageManager(); -- self initialising singleton
-    private static ImageManager ourInstance;
+public class ImageHandler {
+    //private static ImageHandler ourInstance = new ImageHandler(); -- self initialising singleton
+    private static ImageHandler ourInstance;
 
-    public static ImageManager getInstance() {
+    public static ImageHandler getInstance() {
         return ourInstance;
     }
     public static Boolean m_Init = false;
-    public ImageManager(View view) {
+    public ImageHandler(View view) {
         if( !m_Init ) {
             m_Init = true;
             ourInstance = this;
             LoadExistingImages(view);
         }
     }
-    public ImageManager(Context context){
+    public ImageHandler(Context context){
         if( !m_Init ) {
             m_Init = true;
             ourInstance = this;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Pairs ACW</string>
+    <string name="app_name">Sliding Puzzle ACW</string>
+    <string name="author">by Matt J Ashworth</string>
     <string name="button_back">Terug</string>
     <string name="button_play">Speel</string>
     <string name="exit">Exit</string>

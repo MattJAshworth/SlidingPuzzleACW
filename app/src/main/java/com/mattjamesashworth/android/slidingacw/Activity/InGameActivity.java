@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.mattjamesashworth.android.slidingacw.Class.Managers.GameManager;
+import com.mattjamesashworth.android.slidingacw.Class.Handlers.GameHandler;
 import com.mattjamesashworth.android.slidingacw.Class.Puzzle;
 import com.mattjamesashworth.android.slidingacw.Fragments.puzzleCardFragment;
 import com.mattjamesashworth.android.slidingacw.R;
@@ -32,7 +32,7 @@ import com.mattjamesashworth.android.slidingacw.R;
  * Updated by mattjashworth on 23/03/2018, see git log for updates.
  */
 
-public class playingActivity extends AppCompatActivity {
+public class InGameActivity extends AppCompatActivity {
 
     Puzzle m_ActivePuzzle;
     int m_CardsLeft = 0;
@@ -94,11 +94,11 @@ public class playingActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras(); // get intent to retrieve extras from
         m_PuzzleID = extras.getInt("Puzzle_ID"); // get extra housing the puzzle ID
 
-        m_ActivePuzzle = GameManager.getPuzzleByID(m_PuzzleID);
+        m_ActivePuzzle = GameHandler.getPuzzleByID(m_PuzzleID);
         setTextViewText(R.id.text_playing_title, getResources().getString(R.string.puzzle) + " " + String.valueOf(m_ActivePuzzle.puzzle));
 
         m_CardsLeft = m_ActivePuzzle.puzzle_Layout.size();
-        m_ImageList = GameManager.getPuzzlePictureSetImages(m_ActivePuzzle.puzzle_PictureSet);
+        m_ImageList = GameHandler.getPuzzlePictureSetImages(m_ActivePuzzle.puzzle_PictureSet);
         m_TotalCards = m_ActivePuzzle.puzzle_Layout.size();
         m_Layout = m_ActivePuzzle.puzzle_Layout;
         m_Rows = m_ActivePuzzle.puzzle_Rows;
@@ -176,9 +176,9 @@ public class playingActivity extends AppCompatActivity {
         private puzzleCardFragment m_Fragment1;
         private puzzleCardFragment m_Fragment2;
         private Boolean m_HideCard;
-        private playingActivity m_Activity;
+        private InGameActivity m_Activity;
 
-        public HideCardRunnable(playingActivity activity, puzzleCardFragment fragment, puzzleCardFragment fragment2, Boolean hide) { // runnable constructor
+        public HideCardRunnable(InGameActivity activity, puzzleCardFragment fragment, puzzleCardFragment fragment2, Boolean hide) { // runnable constructor
             m_HideCard = hide;
             m_Fragment1 = fragment;
             m_Fragment2 = fragment2;
@@ -211,7 +211,7 @@ public class playingActivity extends AppCompatActivity {
             sharedPreferences.putInt(HIGH_SCORE, m_HighScore);
             sharedPreferences.apply();
 
-            GameManager.getPuzzleByID(m_PuzzleID).puzzle_High_Score = m_Score;
+            GameHandler.getPuzzleByID(m_PuzzleID).puzzle_High_Score = m_Score;
             Toast.makeText(this, getResources().getString(R.string.new_highscore), Toast.LENGTH_LONG).show();
         }
 
@@ -227,7 +227,7 @@ public class playingActivity extends AppCompatActivity {
     }
 
     public void completePuzzle(){
-        Intent intent = new Intent(m_View.getContext(), playGameActivity.class);
+        Intent intent = new Intent(m_View.getContext(), PlayActivity.class);
         startActivity(intent);
 
         finish();

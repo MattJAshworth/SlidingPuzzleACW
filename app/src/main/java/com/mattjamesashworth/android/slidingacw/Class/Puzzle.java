@@ -11,6 +11,7 @@ public class Puzzle {
     public int puzzle;
     public String puzzle_PictureSet;
     public int puzzle_Rows;
+    public int puzzle_Columns;
     public List<Integer> puzzle_Layout;
     public String JSON_STRING = "";
     public int puzzle_High_Score = 0;

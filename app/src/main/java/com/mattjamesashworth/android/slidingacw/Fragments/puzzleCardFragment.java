@@ -12,8 +12,8 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.mattjamesashworth.android.slidingacw.Activity.playingActivity;
-import com.mattjamesashworth.android.slidingacw.Class.Managers.ImageManager;
+import com.mattjamesashworth.android.slidingacw.Activity.InGameActivity;
+import com.mattjamesashworth.android.slidingacw.Class.Handlers.ImageHandler;
 import com.mattjamesashworth.android.slidingacw.Class.SlidingUtils;
 import com.mattjamesashworth.android.slidingacw.R;
 
@@ -50,7 +50,7 @@ public class puzzleCardFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Log.i("[Fragment Card]", "card clicked");
-                    playingActivity activity = (playingActivity) getActivity(); // hardcoded activity, assumes playingActivity
+                    InGameActivity activity = (InGameActivity) getActivity(); // hardcoded activity, assumes InGameActivity
 
                     activity.onCardSelected(m_myInstance, m_ImageName);
                 }
@@ -68,7 +68,7 @@ public class puzzleCardFragment extends Fragment {
 
         m_ImageSize = newSize;
 
-        puzzleImage = SlidingUtils.scaleDown(ImageManager.getImageByFileName(m_ImageName), m_ImageSize, true); // load in bitmap from manager
+        puzzleImage = SlidingUtils.scaleDown(ImageHandler.getImageByFileName(m_ImageName), m_ImageSize, true); // load in bitmap from manager
         puzzleBack = Bitmap.createBitmap(m_ImageSize, m_ImageSize, Bitmap.Config.ARGB_8888); // create empty bitmap
         puzzleBack.eraseColor(m_CardBackColor); // set bitmap color to white;
 
@@ -98,7 +98,7 @@ public class puzzleCardFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.i("[Fragment Card]", "card clicked");
-                playingActivity activity = (playingActivity) getActivity(); // hardcoded activity, assumes playingActivity
+                InGameActivity activity = (InGameActivity) getActivity(); // hardcoded activity, assumes InGameActivity
 
                 activity.onCardSelected(m_myInstance, m_ImageName);
             }
@@ -140,7 +140,7 @@ public class puzzleCardFragment extends Fragment {
 
         m_ImageSize = imageSize;
 
-        puzzleImage = SlidingUtils.scaleDown(ImageManager.getImageByFileName(m_ImageName), m_ImageSize, true); // load in bitmap from manager
+        puzzleImage = SlidingUtils.scaleDown(ImageHandler.getImageByFileName(m_ImageName), m_ImageSize, true); // load in bitmap from manager
         puzzleBack = Bitmap.createBitmap(m_ImageSize, m_ImageSize, Bitmap.Config.ARGB_8888); // create empty bitmap
         puzzleBack.eraseColor(m_CardBackColor); // set bitmap color to white;
 

@@ -23,9 +23,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mattjamesashworth.android.slidingacw.Class.Managers.GameManager;
-import com.mattjamesashworth.android.slidingacw.Class.Managers.ImageManager;
-import com.mattjamesashworth.android.slidingacw.Class.Managers.JsonManager;
+import com.mattjamesashworth.android.slidingacw.Class.Handlers.GameHandler;
+import com.mattjamesashworth.android.slidingacw.Class.Handlers.ImageHandler;
+import com.mattjamesashworth.android.slidingacw.Class.Handlers.JsonHandler;
 import com.mattjamesashworth.android.slidingacw.Class.SlidingUtils;
 import com.mattjamesashworth.android.slidingacw.Class.Puzzle;
 import com.mattjamesashworth.android.slidingacw.Class.PuzzlePictureSet;
@@ -35,19 +35,19 @@ import com.mattjamesashworth.android.slidingacw.R;
  * Created by mattjashworth on 21/03/2018.
  */
 
-public class downloadActivity extends AppCompatActivity{
+public class DownloadJsonActivity extends AppCompatActivity{
 
     public List<Integer> installed_Puzzles;
     public List<Integer> available_Puzzles;
 
-    private List<AsyncTask<String, String, String>> m_Json_Downloader;
-    private View m_View;
+    private List<AsyncTask<String, String, String>> json_Downloader;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
-        m_View = this.findViewById(android.R.id.content); // store root view
+        view = this.findViewById(android.R.id.content); //store content view
 
         Button backButton = (Button)findViewById(R.id.btn_Back);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -59,13 +59,13 @@ public class downloadActivity extends AppCompatActivity{
 
         installed_Puzzles = new ArrayList<>();
         available_Puzzles = new ArrayList<>();
-        m_Json_Downloader = new ArrayList<>();
+        json_Downloader = new ArrayList<>();
 
         checkExistingPuzzles();
         DownloadJson("index.json", "");
 
         //Background Transitions
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.frags);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.content);
         AnimationDrawable animationDrawable;
         animationDrawable =(AnimationDrawable) linearLayout.getBackground();
         animationDrawable.setEnterFadeDuration(5000);
@@ -76,14 +76,14 @@ public class downloadActivity extends AppCompatActivity{
     }
 
     public void onIndexDownloaded(String data){
-        if( m_Json_Downloader.size() == 0 )
+        if( json_Downloader.size() == 0 )
             toggleBackButton(true);
 
-        List<String> puzzleList = GameManager.ReadPuzzlesFromIndex("index.json", data);
+        List<String> puzzleList = GameHandler.ReadPuzzlesFromIndex("index.json", data);
 
         List<Integer> puzzleIDList = new ArrayList<>();
         for(String s : puzzleList){ // remove all puzzles that exist locally
-            if( !JsonManager.containsJSONByFileName(s) ){
+            if( !JsonHandler.containsJSONByFileName(s) ){
                 puzzleIDList.add( Integer.parseInt(SlidingUtils.StripPuzzleDownToID(s, 5)) );
             }
         }
@@ -93,23 +93,17 @@ public class downloadActivity extends AppCompatActivity{
     }
 
     public void checkExistingPuzzles(){
-        installed_Puzzles.addAll( GameManager.getListOfPuzzleIDs() );
+        installed_Puzzles.addAll( GameHandler.getListOfPuzzleIDs() );
 
         ListView listView = (ListView)findViewById(R.id.installed_puzzles);
         updateListView(listView, installed_Puzzles);
     }
 
-    public void downloadImages(String[] imageNames) {
-        for (String s : imageNames) {
-            if( !ImageManager.containsImageByFileName(s) ) // do not download if already exist
-                ImageManager.DownloadImage(getApplicationContext(), s);
-        }
-    }
 
     public void downloadImages(List<String> imageNames){
         for (String s : imageNames) {
-            if( !ImageManager.containsImageByFileName(s) ) // do not download if already exist
-                ImageManager.DownloadImage(getApplicationContext(), s);
+            if( !ImageHandler.containsImageByFileName(s) ) // do not download if already exist
+                ImageHandler.DownloadImage(getApplicationContext(), s);
         }
     }
 
@@ -144,7 +138,7 @@ public class downloadActivity extends AppCompatActivity{
         m_SelectedPuzzleID = available_Puzzles.get(position);
         m_SelectedPuzzleIDIndexInList = position;
 
-        new AlertDialog.Builder(m_View.getContext()) // set alert dialog for downloading puzzle
+        new AlertDialog.Builder(view.getContext()) // set alert dialog for downloading puzzle
                 .setTitle(getResources().getString(R.string.download)+" "+getResources().getString(R.string.puzzle)+" "+m_SelectedPuzzleID) // title
                 .setMessage( getResources().getString(R.string.dialog_description)+m_SelectedPuzzleID) // description
                 .setPositiveButton(getResources().getString(R.string.download), new DialogInterface.OnClickListener() { // button on right side
@@ -167,7 +161,7 @@ public class downloadActivity extends AppCompatActivity{
         updateListView(downloadableListView, available_Puzzles);
 
         // download file
-        DownloadJson("puzzle"+m_SelectedPuzzleID+".json", mainMenuActivity.PUZZLE_FILES);
+        DownloadJson("puzzle"+m_SelectedPuzzleID+".json", PrefaceActivity.PUZZLE_FILES);
 
         installed_Puzzles.add( m_SelectedPuzzleID ); // add puzzle to installed
         ListView installed_ListView = (ListView)findViewById(R.id.installed_puzzles);
@@ -186,29 +180,29 @@ public class downloadActivity extends AppCompatActivity{
         if( fileName.contains("index")){
             onIndexDownloaded(data);
         }else {
-            JsonManager.SaveJsonToStorage(getApplicationContext(), fileName, data); // save and add the json to internal storage
+            JsonHandler.SaveJsonToStorage(getApplicationContext(), fileName, data); // save and add the json to internal storage
             if( fileName.contains("puzzle") ) {
-                Puzzle newPuzzle = GameManager.ReadPuzzleFromJson(fileName, data); // read in new puzzle to the manager
+                Puzzle newPuzzle = GameHandler.ReadPuzzleFromJson(fileName, data); // read in new puzzle to the manager
                 if (newPuzzle != null) {
                     String newPictureSet = newPuzzle.puzzle_PictureSet;
-                    DownloadJson(newPictureSet, mainMenuActivity.PUZZLE_PICTURESET);
-                    Toast.makeText(m_View.getContext(), getResources().getString(R.string.puzzle_download_complete), Toast.LENGTH_SHORT);
+                    DownloadJson(newPictureSet, PrefaceActivity.PUZZLE_PICTURESET);
+                    Toast.makeText(view.getContext(), getResources().getString(R.string.puzzle_download_complete), Toast.LENGTH_SHORT);
                 }
             }
             else{ // must be a pictureset
-                PuzzlePictureSet newSet = GameManager.ReadPictureSetFromJson(fileName, data);
+                PuzzlePictureSet newSet = GameHandler.ReadPictureSetFromJson(fileName, data);
                 downloadImages(newSet.getImageNames());
-                Toast.makeText(m_View.getContext(), getResources().getString(R.string.images_download_complete), Toast.LENGTH_SHORT);
+                Toast.makeText(view.getContext(), getResources().getString(R.string.images_download_complete), Toast.LENGTH_SHORT);
             }
         }
-        m_Json_Downloader.remove(task); // remove task from downloader list
+        json_Downloader.remove(task); // remove task from downloader list
         Log.i("[Download Activity]", "Finished downloading: "+fileName);
     }
 
     // method called to download images, provided with their context and the filename of the image
     public void DownloadJson(String fileName, String url) {
-        if ( !JsonManager.m_Jsons.containsKey(fileName) )
-            m_Json_Downloader.add(new downloadJson().execute(fileName, mainMenuActivity.PUZZLE_DIRECTORY + url));
+        if ( !JsonHandler.m_Jsons.containsKey(fileName) )
+            json_Downloader.add(new downloadJson().execute(fileName, PrefaceActivity.PUZZLE_DIRECTORY + url));
         else
             Log.i("[Download Activity]", "Json already exist, aborting download");
     }

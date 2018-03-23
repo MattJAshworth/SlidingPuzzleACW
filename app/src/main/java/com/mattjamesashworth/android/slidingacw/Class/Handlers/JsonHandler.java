@@ -1,4 +1,4 @@
-package com.mattjamesashworth.android.slidingacw.Class.Managers;
+package com.mattjamesashworth.android.slidingacw.Class.Handlers;
 
 import android.content.Context;
 import android.util.Log;
@@ -18,15 +18,15 @@ import java.util.Map;
  * Created by mattjashworth on 21/03/2018.
  */
 
-public class JsonManager {
-    //private static JsonManager ourInstance = new JsonManager(); -- self initialising singleton
-    private static JsonManager ourInstance;
+public class JsonHandler {
+    //private static JsonHandler ourInstance = new JsonHandler(); -- self initialising singleton
+    private static JsonHandler ourInstance;
 
-    public static JsonManager getInstance() {
+    public static JsonHandler getInstance() {
         return ourInstance;
     }
     public static Boolean m_Init = false;
-    public JsonManager(View view) {
+    public JsonHandler(View view) {
         if( !m_Init ) {
             m_Init = true;
             ourInstance = this;
@@ -34,7 +34,7 @@ public class JsonManager {
         }
     }
 
-    public JsonManager(Context context){
+    public JsonHandler(Context context){
         if( !m_Init ) {
             m_Init = true;
             ourInstance = this;
@@ -183,7 +183,7 @@ public class JsonManager {
                 }
 
                 // download picture set
-                DownloadJson(pictureSet, mainMenuActivity.PUZZLE_DIRECTORY + mainMenuActivity.PUZZLE_PICTURESET);
+                DownloadJson(pictureSet, PrefaceActivity.PUZZLE_DIRECTORY + PrefaceActivity.PUZZLE_PICTURESET);
 
                 Puzzle new_Puzzle = new Puzzle(value, id, pictureSet, rows, layout);
                 m_Puzzles.add(new_Puzzle);
