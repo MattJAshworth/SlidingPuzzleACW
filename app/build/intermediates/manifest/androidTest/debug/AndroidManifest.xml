@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="mobile.labs.acw.test">
+    package="com.mattjamesashworth.android.slidingacw.test">
 
     <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="24" />
 
@@ -9,8 +9,8 @@
     </application>
 
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="mobile.labs.acw"
+                     android:targetPackage="com.mattjamesashworth.android.slidingacw"
                      android:handleProfiling="false"
                      android:functionalTest="false"
-                     android:label="Tests for mobile.labs.acw"/>
+                     android:label="Tests for com.mattjamesashworth.android.slidingacw"/>
 </manifest>
