@@ -1,18 +1,17 @@
-# University-Puzzle-App
-[2016/2017] [Semester 1] Mobile Devices and Applications project
+# Sliding ACW - University Coursework
+University Coursework for Mobile Devices and Applications - [2017/2018] [Semester 2]
 
-Developed and supported in API 16/24 without google.
-(uses a network connection to the university resources and therefore might cause issue in future if this is taken down)
+Miniumum SDK Version: 16
+Target SDK Version: 24
+No use of Google APIs or other 3rd party APIS
 
-# Tile Puzzle Game
+Recommended active network connection. Requires JSON data from "http://www.simongrey.net/08027/slidingPuzzleAcw" to function correctly. This JSON data may not be available after the coursework has finished.
 
-Users engage in a puzzle game where they have to match all the pair of cards in order to succesfully complete it!
+# Sliding Puzzle Game
 
-# Main Menu
-![Main Menu](https://raw.githubusercontent.com/InfekmaUni/University-Puzzle-App/master/Main%20Menu.png)
+An app rendition of a popular childs game where a player must arrange a jumbled up image by sliding pieces of the image into the correct places.
 
-# Game Setup
-![Main Menu](https://raw.githubusercontent.com/InfekmaUni/University-Puzzle-App/master/Setup_Game.png)
+- At the time of publication there are 160 puzzles to play, this could change and no recode is neccessary.
+- Puzzles can be played in 4 configurations; 3x3, 3x4, 4x3 and 4x4
 
-# Gameplay
-![Main Menu](https://raw.githubusercontent.com/InfekmaUni/University-Puzzle-App/master/Playing_Game.png)
+
