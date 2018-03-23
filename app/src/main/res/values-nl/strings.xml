@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pairs ACW</string>
+    <string name="button_back">Terug</string>
+    <string name="button_play">Speel</string>
+    <string name="exit">Exit</string>
+    <string name="gamemode_click">Klik Mode</string>
+    <string name="high_score">Hoogscore</string>
+    <string name="gamemode_drag">Drag Mode</string>
+    <string name="score">Score</string>
+    <string name="puzzle">Puzzel</string>
+    <string name="select_gamemode">Kies Gamemode</string>
+    <string name="select_puzzle">Kies een Puzzel</string>
+    <string name="selected_puzzle">Gekozen Puzzel</string>
+    <string name="server_puzzles">Dowload Puzzel</string>
+    <string name="start">Begin</string>
+    <string name="local_puzzles">Lokaal Puzzel</string>
+    <string name="button_download_puzzles">Krijg meer puzzels</string>
+    <string name="cards">Kaart</string>
+    <string name="download">Download</string>
+    <string name="cancel">Annuleer</string>
+    <string name="dialog_description">Wil je deze puzzel downloaden:</string>
+    <string name="dialog_download_title">Download puzzel</string>
+    <string name="images_download_complete">Afbeelding download compleet</string>
+    <string name="puzzle_download_complete">Puzzel download compleet</string>
+    <string name="new_highscore">Nieuw Hoogescore!</string>
+    <string name="puzzle_completed">Puzzel Klaar</string>
+    <string name="puzzle_continue">Continue</string>
+    <string name="replay">Replay</string>
+    <string name="puzzle_filter_by">Puzzel Filter op</string>
+    <string name="played_never">Nooit Gespeelt</string>
+    <string name="played_before">Gespeelt</string>
+    <string name="one"></string>
+    <string name="more_then_24_cards">Meer dan 24 kaarten</string>
+    <string name="less_then_24_cards">Minder dan 24 kaarten</string>
+    <string name="none">Geen</string>
+</resources>

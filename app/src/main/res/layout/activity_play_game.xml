@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frags"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/main_container">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/setup_main_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="10dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="@string/select_gamemode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/text_select_game_mode"
+                        android:textStyle="normal|bold"
+                        android:textAllCaps="true"
+                        android:fontFamily="sans-serif"
+                        android:textSize="18sp" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checkedButton="@+id/setup_click_button"
+                        android:orientation="horizontal"
+                        android:id="@+id/setup_radio_group">
+
+                        <RadioButton
+                            android:text="@string/gamemode_click"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/setup_click_button"
+                            android:layout_weight="1"
+                            android:checked="true" />
+
+                        <RadioButton
+                            android:text="@string/gamemode_drag"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/setup_drag_button"
+                            android:layout_weight="1" />
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:text="@string/puzzle_filter_by"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/text_sorting_filter"
+                        android:layout_weight="1"
+                        android:textStyle="normal|bold"
+                        android:textAllCaps="true"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/filter_spinner"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:text="@string/select_puzzle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/text_select_puzzle"
+                        android:textStyle="normal|bold"
+                        android:textAllCaps="true"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:text="@string/selected_puzzle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/text_selected_puzzle"
+                        android:textStyle="normal|bold"
+                        android:textAllCaps="true"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:visibility="invisible" />
+
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:id="@+id/list_of_puzzles"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scrollbarFadeDuration="0" />
+
+                    <Button
+                        android:text="@string/button_download_puzzles"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/button_download_more_puzzles" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="100dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Space
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="5dp" />
+
+                    <Button
+                        android:text="@string/button_back"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/back_button"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:text="@string/button_play"
+                        android:id="@+id/play_button"
+                        android:layout_weight="1"
+                        android:elevation="6dp"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:enabled="false" />
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

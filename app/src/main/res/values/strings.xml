@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Sliding Puzzle ACW</string>
+    <string name="author">by Matt J Ashworth</string>
+    <string name="button_back">Back</string>
+    <string name="button_play">Play</string>
+    <string name="button_download_puzzles">Get More Puzzles</string>
+    <string name="select_puzzle">Select a Puzzle</string>
+    <string name="select_gamemode">Select Gamemode</string>
+    <string name="gamemode_click">Click Mode</string>
+    <string name="gamemode_drag">Drag Mode</string>
+    <string name="puzzle">Puzzle</string>
+    <string name="score">Score</string>
+    <string name="high_score">Highscore</string>
+    <string name="local_puzzles">Local Puzzles</string>
+    <string name="server_puzzles">Download Puzzles</string>
+    <string name="selected_puzzle">Selected Puzzle</string>
+    <string name="start">Start</string>
+    <string name="exit">Exit</string>
+    <string name="cards">Cards</string>
+    <string name="less_then_24_cards">Less then 24 cards</string>
+    <string name="more_then_24_cards">More then 24 cards</string>
+    <string name="played_before">Played</string>
+    <string name="played_never">Never Played</string>
+    <string name="download">Download</string>
+    <string name="cancel">Cancel</string>
+    <string name="puzzle_download_complete">Puzzle Download Complete</string>
+    <string name="images_download_complete">Images Download Complete</string>
+    <string name="puzzle_filter_by">Puzzle Filter By</string>
+    <string name="dialog_download_title">Download Puzzle</string>
+    <string name="dialog_description">Do you wish to download puzzle: </string>
+
+    <string name="replay">Replay</string>
+    <string name="puzzle_completed">Puzzle Completed!</string>
+    <string name="puzzle_continue">Continue</string>
+    <string name="new_highscore">New High Score!</string>
+    <string name="none">None</string>
+</resources>
