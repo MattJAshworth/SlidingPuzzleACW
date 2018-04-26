@@ -13,8 +13,7 @@
         android:layout_toRightOf="@+id/letters"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
-        android:fitsSystemWindows="true"
-        app:srcCompat="@drawable/lettera" />
+        android:fitsSystemWindows="true" />
 
     <TextView
         android:id="@+id/letters"

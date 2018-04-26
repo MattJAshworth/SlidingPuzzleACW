@@ -10,7 +10,7 @@ public class Puzzle
     private String m_Name;
     private String m_PictureSet;
     private String m_LayoutDef;
-    private String m_HighScore;
+    private String m_Highscore;
     private String m_Username;
     private int m_ID;
 
@@ -25,7 +25,7 @@ public class Puzzle
         this.m_Name = pName;
         this.m_PictureSet = pPictureSet;
         this.m_LayoutDef = pLayoutDef;
-        this.m_HighScore = pHighScore;
+        this.m_Highscore = pHighScore;
         this.m_ID = pID;
         this.m_Username = pUsername;
     }
@@ -37,7 +37,7 @@ public class Puzzle
 
     public String Highscore()
     {
-        return m_HighScore;
+        return m_Highscore;
     }
 
     public String PictureSet()

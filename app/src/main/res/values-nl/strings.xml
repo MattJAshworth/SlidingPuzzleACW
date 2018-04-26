@@ -12,7 +12,7 @@
 
     //Tutorial
     <string name="aboutTitle">Over het glijden ACW</string>
-    <string name="about">Over Sliding ACWSliding Puzzle_old gebruikte lees / schrijfopslagrechten voor het opslaan van langetermijnbesparende highscores. \ n Topscores kunnen zonder deze toestemming worden opgeslagen in gedeelde voorkeuren, maar het is raadzaam opslagruimte toe te staan. \ n Als je de game leuk vindt en meer wilt weten, druk dan op de ontwikkelaarsknop in het spel om deze te bekijken op Google Play en de broncode op github. \ n \ n Bedankt, Matt.</string>
+    <string name="about">Over Sliding ACWSliding Puzzle gebruikte lees / schrijfopslagrechten voor het opslaan van langetermijnbesparende highscores. \ n Topscores kunnen zonder deze toestemming worden opgeslagen in gedeelde voorkeuren, maar het is raadzaam opslagruimte toe te staan. \ n Als je de game leuk vindt en meer wilt weten, druk dan op de ontwikkelaarsknop in het spel om deze te bekijken op Google Play en de broncode op github. \ n \ n Bedankt, Matt.</string>
     <string name="play">laten we gaan spelen</string>
 
     //Main app
@@ -39,7 +39,7 @@
     <string name="changeMode">De wijzigingsmodus is op dit moment niet beschikbaar</string>
     <string name="navigationNoHighscores">Plaats een highscore voordat je het highscore-bord bekijkt</string>
     <string name="globalLeaderboards">Global Leaderboards zijn niet beschikbaar in de demo-app, zie Google Play Edition voor competitieve klassementen</string>
-
+    <string name="soundtrackToast">Soundtrack: Four Tet - LA Trance</string>
 
     //Navigation strings
     <string name="navigationHome">Huis</string>

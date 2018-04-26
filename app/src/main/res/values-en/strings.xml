@@ -11,7 +11,7 @@
 
     //Tutorial
     <string name="aboutTitle">About Sliding ACW</string>
-    <string name="about">Sliding Puzzle_old used read/write storage permissions for saving of long term saving highscores. \n Highscores can be saved without this permission in shared preferences but its recommended you allow storage. \n If you like the game and want to know more, hit the developer button in game to view on Google Play and the source code on github. \n \n Thanks, Matt.</string>
+    <string name="about">Sliding Puzzle used read/write storage permissions for saving of long term saving highscores. \n Highscores can be saved without this permission in shared preferences but its recommended you allow storage. \n If you like the game and want to know more, hit the developer button in game to view on Google Play and the source code on github. \n \n Thanks, Matt.</string>
     <string name="play">Lets Play</string>
 
     //Main app
@@ -38,6 +38,7 @@
     <string name="changeMode">Change mode is unavailable at this time</string>
     <string name="navigationNoHighscores">Please post a highscore before viewing the highscore board</string>
     <string name="globalLeaderboards">Global Leaderboards unavailable in demo app, see Google Play Edition for competitive leaderboards</string>
+    <string name="soundtrackToast">Soundtrack: Four Tet - LA Trance</string>
 
 
 

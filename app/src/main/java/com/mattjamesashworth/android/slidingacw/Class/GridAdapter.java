@@ -57,8 +57,6 @@ public class GridAdapter extends BaseAdapter
             gridView = inflater.inflate(R.layout.custom_layout, null);
         }
         ImageView icon = (ImageView) gridView.findViewById(R.id.tiles);
-        //ImageView imageView = (ImageView) findViewById(R.id.myImage);
-        //imageView.setImageBitmap(BitmapFactory.decodeFile("/data/data/com.example.robda.androidacw/files/apple12.JPEG"));
         icon.setImageBitmap(tiles[i]);
         return gridView;
     }

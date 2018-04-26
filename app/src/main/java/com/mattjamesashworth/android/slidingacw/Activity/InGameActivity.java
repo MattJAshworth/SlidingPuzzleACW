@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +16,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Chronometer;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.mattjamesashworth.android.slidingacw.Class.GridAdapter;
@@ -29,13 +34,13 @@ import java.util.List;
  * Last updated by MattJAshworth on 26/04/2018, see git log for updates.
  */
 
-
-
 public class InGameActivity extends AppCompatActivity
 {
     int playerScore = 100;
     int rows = 3;
     int columns = 3;
+
+    MediaPlayer mp;
 
     String path = "/data/data/com.mattjamesashworth.android.slidingacw/files/";
     String puzzlePicture = "";
@@ -108,9 +113,11 @@ public class InGameActivity extends AppCompatActivity
         }
         drawGrid();
 
-        chronometer = (Chronometer) findViewById(R.id.simpleChronometer); // initiate a chronometer
+        chronometer = (Chronometer) findViewById(R.id.chronometer); // initiate a chronometer
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
+
+        soundtrackstart();
 
         adapter = new GridAdapter(InGameActivity.this, tiles);
         gridView.setAdapter(adapter);
@@ -126,6 +133,14 @@ public class InGameActivity extends AppCompatActivity
                 gridView.setAdapter(adapter);
             }
         });
+
+        //Background transitions
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.content);
+        AnimationDrawable animationDrawable;
+        animationDrawable =(AnimationDrawable) relativeLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(5000);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
     }
 
     protected void getStringIntent()
@@ -235,13 +250,15 @@ public class InGameActivity extends AppCompatActivity
         }
 
     }
-    PuzzleDBHandler m_DBHelperRead = new PuzzleDBHandler(this);
+    PuzzleDBHandler dbHandler = new PuzzleDBHandler(this);
 
 
     private void showElapsedTime()
     {    ContentValues values = new ContentValues();
         values.clear();
         chronometer.stop();
+        stopPlaying();
+        Toast.makeText(getApplicationContext(), getString(R.string.soundtrackToast), Toast.LENGTH_LONG).show();
         long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
         elapsedMillis = elapsedMillis / 1000;
         playerScore -= elapsedMillis;
@@ -251,7 +268,7 @@ public class InGameActivity extends AppCompatActivity
         }
         Toast.makeText(getApplicationContext(), getString(R.string.puzzleCompleted) + " " + playerScore + " " + getString(R.string.points), Toast.LENGTH_LONG).show();
 
-        SQLiteDatabase db = m_DBHelperRead.getWritableDatabase();
+        SQLiteDatabase db = dbHandler.getWritableDatabase();
 
         values.put(PuzzleDBContract.PuzzleEntry.HIGHSCORE, playerScore);
         values.put(PuzzleDBContract.PuzzleEntry.USERNAME, username);
@@ -416,11 +433,28 @@ public class InGameActivity extends AppCompatActivity
         }
     }
 
+    private void soundtrackstart() {
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        stopPlaying();
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.latrance);
+        mp.setLooping(true);
+        mp.start();
+    }
+
+    private void stopPlaying() {
+        if (mp != null) {
+            mp.stop();
+            mp.release();
+            mp = null;
+        }
+    }
+
     @Override
     protected void onPause()
     {
         super.onPause();
         chronometer.stop();
+        mp.pause();
     }
 
     @Override
@@ -428,6 +462,7 @@ public class InGameActivity extends AppCompatActivity
     {
         super.onResume();
         chronometer.start();
+        mp.start();
     }
 
 }

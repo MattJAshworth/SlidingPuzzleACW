@@ -57,7 +57,7 @@ public class Highscore extends Fragment {
                 null
         );
 
-        ArrayList puzzleList123 = new ArrayList<Puzzle>();
+        ArrayList puzzleList = new ArrayList<Puzzle>();
 
         c.moveToFirst();
 
@@ -70,7 +70,7 @@ public class Highscore extends Fragment {
         Puzzle puzzle = new Puzzle(name, null, null, highScoreText, id, username);
 
         String formattedList = "Puzzle: " + puzzle.Name() + "\nScore: " + puzzle.Highscore() + "\nPlayer: " + puzzle.Username();
-        puzzleList123.add(formattedList);
+        puzzleList.add(formattedList);
 
         while (c.moveToNext())
         {
@@ -86,10 +86,10 @@ public class Highscore extends Fragment {
             puzzle = new Puzzle(name, null, null, highScoreText, id, username);
             formattedList = "Puzzle: " + puzzle.Name() + "\nScore: " + puzzle.Highscore() + "\nPlayer: " + puzzle.Username();
 
-            puzzleList123.add(formattedList);
+            puzzleList.add(formattedList);
         }
         c.close();
-        PuzzleAdapter adapter = new PuzzleAdapter(rootView.getContext(), android.R.layout.simple_list_item_1, puzzleList123);
+        PuzzleAdapter adapter = new PuzzleAdapter(rootView.getContext(), android.R.layout.simple_list_item_1, puzzleList);
         final ListView listView = (ListView) rootView.findViewById(R.id.highscore);
         listView.setAdapter(adapter);
 

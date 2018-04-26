@@ -7,14 +7,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -45,11 +48,13 @@ import java.util.ArrayList;
 public class PlayActivity extends AppCompatActivity
 {
 
-    PuzzleDBHandler m_DBHelper = new PuzzleDBHandler(this);
-    PuzzleDBHandler m_DBHelperRead = new PuzzleDBHandler(this);
-    Boolean downloadingInProgress = true;
+    PuzzleDBHandler dbHandler = new PuzzleDBHandler(this);
+    PuzzleDBHandler dbHandlerRead = new PuzzleDBHandler(this);
+    Boolean isDownloading = true;
+
     String layout = "";
     String picture = "";
+
     String[] formattedLayoutRow1 = null, formattedLayoutRow2 = null,
             formattedLayoutRow3 = null, formattedLayoutRow4 = null;
     String[] fullLayoutArray = null;
@@ -62,11 +67,20 @@ public class PlayActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_puzzle);
 
+        //Background transitions
+        ConstraintLayout relativeLayout = (ConstraintLayout) findViewById(R.id.content);
+        AnimationDrawable animationDrawable;
+        animationDrawable =(AnimationDrawable) relativeLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(5000);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
+
         SQLiteDatabase db = new PuzzleDBHandler(this).getReadableDatabase();
         String[] projection = {
                 PuzzleDBContract.PuzzleEntry._ID,
                 PuzzleDBContract.PuzzleEntry.COLUMN_NAME_NAME,
-                PuzzleDBContract.PuzzleEntry.HIGHSCORE
+                PuzzleDBContract.PuzzleEntry.HIGHSCORE,
+                PuzzleDBContract.PuzzleEntry.USERNAME
         };
 
         Cursor c = db.query(
@@ -109,21 +123,20 @@ public class PlayActivity extends AppCompatActivity
                         getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
                 if (info == null)
                 {
-                    Toast.makeText(PlayActivity.this, "No Network Connection", Toast.LENGTH_SHORT).show();
-                    getStoredPuzzle(position);
+                    Toast.makeText(PlayActivity.this, getString(R.string.noNetwork), Toast.LENGTH_SHORT).show();
+                    getLocalPuzzle(position);
                 }
                 else
                 {
-                    new downloadPuzzleDefinition().execute((getString(R.string.puzzleDefinitionURI)) + position + ".json");
+                    new downloadPuzzleJSON().execute((getString(R.string.puzzleDefinitionURI)) + position + ".json");
                 }
-
             }
         });
     }
 
-    protected void getStoredPuzzle(int position)
+    protected void getLocalPuzzle(int position)
     {
-        SQLiteDatabase dbRead = m_DBHelperRead.getReadableDatabase();
+        SQLiteDatabase dbRead = dbHandlerRead.getReadableDatabase();
 
         String[] projection = {
                 PuzzleDBContract.PuzzleEntry.COLUMN_NAME_NAME,
@@ -207,7 +220,6 @@ public class PlayActivity extends AppCompatActivity
                                 row3Col1, row3Col2, row3Col3, row3Col4,
                                 row4Col1, row4Col2, row4Col3, row4Col4};
 
-                        Log.i("infor", "" + puzzleLayout4.length);
                         Intent intent = new Intent(getApplicationContext(), InGameActivity.class);
 
                         intent.putExtra((getString(R.string.puzzleLayoutCombo1)), puzzleLayout1);
@@ -227,24 +239,19 @@ public class PlayActivity extends AppCompatActivity
         c.close();
     }
 
-    public void show3x3(View view)
-    {
 
-    }
-
-
-    private class downloadPuzzleDefinition extends AsyncTask<String, String, String>
+    private class downloadPuzzleJSON extends AsyncTask<String, String, String>
     {
 
         protected String doInBackground(String... args)
         {
 
-            downloadingInProgress = true;
+            isDownloading = true;
             try
             {
                 ContentValues values = new ContentValues();
-                SQLiteDatabase db = m_DBHelper.getWritableDatabase();
-                SQLiteDatabase dbRead = m_DBHelperRead.getReadableDatabase();
+                SQLiteDatabase db = dbHandler.getWritableDatabase();
+                SQLiteDatabase dbRead = dbHandlerRead.getReadableDatabase();
 
                 InputStream stream = (InputStream) new URL(args[0]).getContent();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -265,7 +272,6 @@ public class PlayActivity extends AppCompatActivity
                 Log.i("Layout", layout);
 
                 String[] projection = {
-                        //PuzzleDBContract.PuzzleEntry.COLUMN_PICTURE_SET_DEFINITION,
                         PuzzleDBContract.PuzzleEntry.COLUMN_LAYOUT_DEFINITION
                 };
                 Cursor c = dbRead.query(
@@ -279,8 +285,6 @@ public class PlayActivity extends AppCompatActivity
                 values.put(PuzzleDBContract.PuzzleEntry.COLUMN_PICTURE_SET_DEFINITION, picture);
                 db.update(PuzzleDBContract.PuzzleEntry.TABLE_NAME, values, "Name =\"" + puzzle + "\"", null);
 
-                ///Downloads the layout and stores it in a new table in database.
-                ///Downloads the pictures and stores them on the device.
                 String url = (getString(R.string.puzzlesLayoutURI)) + layout;
                 stream = (InputStream) new URL(url).getContent();
                 reader = new BufferedReader(new InputStreamReader(stream));
@@ -309,7 +313,6 @@ public class PlayActivity extends AppCompatActivity
                     String completeLayout = layoutArray.getString(i);
 
                     completeLayout = completeLayout.replaceAll((getString(R.string.regexReplaceMisc)), "");
-                    //completeLayout = completeLayout.substring(0, completeLayout.length() - 1);
                     completeLayout = completeLayout.replace("]", ",");
                     fullLayout += completeLayout;
                     switch (i)
