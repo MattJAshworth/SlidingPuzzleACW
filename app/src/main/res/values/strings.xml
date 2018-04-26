@@ -1,37 +1,27 @@
 <resources>
     <string name="app_name">Sliding Puzzle ACW</string>
     <string name="author">by Matt J Ashworth</string>
-    <string name="button_back">Back</string>
-    <string name="button_play">Play</string>
-    <string name="button_download_puzzles">Download Puzzles</string>
-    <string name="select_puzzle">Select a Puzzle</string>
-    <string name="select_gamemode">Select Gametype</string>
-    <string name="gamemode_click">Auto Mode</string>
-    <string name="gamemode_drag">Swipe Mode</string>
-    <string name="puzzle">Puzzle</string>
-    <string name="score">Score</string>
-    <string name="high_score">Highscore</string>
-    <string name="local_puzzles">Your Puzzles</string>
-    <string name="server_puzzles">Download Puzzles</string>
-    <string name="selected_puzzle">Selected Puzzle</string>
-    <string name="start">Start</string>
-    <string name="exit">Exit</string>
-    <string name="cards">Cards</string>
-    <string name="less_then_24_cards">Less then 24 cards</string>
-    <string name="more_then_24_cards">More then 24 cards</string>
-    <string name="played_before">Played</string>
-    <string name="played_never">Never Played</string>
-    <string name="download">Download</string>
-    <string name="cancel">Cancel</string>
-    <string name="puzzle_download_complete">Puzzle Download Complete</string>
-    <string name="images_download_complete">Images Download Complete</string>
-    <string name="puzzle_filter_by">Puzzle Filter By</string>
-    <string name="dialog_download_title">Download Puzzle</string>
-    <string name="dialog_description">Do you wish to download puzzle: </string>
 
-    <string name="replay">Replay</string>
-    <string name="puzzle_completed">Puzzle Completed!</string>
-    <string name="puzzle_continue">Continue</string>
-    <string name="new_highscore">New High Score!</string>
-    <string name="none">None</string>
+    <string name="puzzleIndexURL">http://www.simongrey.net/08027/slidingPuzzleAcw/index.json</string>
+    <string name="downloadedPuzzles">Downloaded Puzzles</string>
+    <string name="noPuzzlesFound">No puzzles found, please download puzzles to continue</string>
+    <string name="puzzleLayout">http://www.simongrey.net/08027/slidingPuzzleAcw/layouts/</string>
+    <string name="puzzleImageURL">http://www.simongrey.net/08027/slidingPuzzleAcw/images/</string>
+    <string name="puzzleLayout1">puzzleLayout1</string>
+    <string name="puzzleLayout2">puzzleLayout2</string>
+    <string name="puzzleLayout3">puzzleLayout3</string>
+    <string name="puzzleLayout4">puzzleLayout4</string>
+    <string name="fullPuzzleLayout">fullPuzzleLayout</string>
+    <string name="puzzleImage">puzzleImage</string>
+    <string name="puzzleDefinitionURL">http://www.simongrey.net/08027/slidingPuzzleAcw/puzzles/puzzle</string>
+    <string name="win">Congratulations, you have won and scored </string>
+    <string name="points"> points</string>
+    <string name="noNetwork">No Network Detected</string>
+    <string name="download_puzzles">Download Puzzles</string>
+    <string name="stored_puzzles">Stored Puzzles</string>
+    <string name="highscores">Highscores</string>
+    <string name="regexReplaceMisc">[^empty 1-9\\],]</string>
+    <string name="noHighscores">No Highscores, please complete a puzzle</string>
+
+
 </resources>

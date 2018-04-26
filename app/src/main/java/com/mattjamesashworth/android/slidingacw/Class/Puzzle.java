@@ -1,26 +1,60 @@
 package com.mattjamesashworth.android.slidingacw.Class;
 
-import java.util.List;
-
 /**
- * Created by mattjashworth on 21/03/2018.
- * Updated by mattjashworth on 23/03/2018, see git log for updates.
+ * Created by robda on 14/03/2018.
  */
 
-public class Puzzle {
-    public int puzzle;
-    public String puzzle_PictureSet;
-    public int puzzle_Rows;
-    public int puzzle_Columns;
-    public List<Integer> puzzle_Layout;
-    public String JSON_STRING = "";
-    public int puzzle_High_Score = 0;
+public class Puzzle
+{
+    private String m_Name;
+    private String m_PictureSet;
+    private String m_LayoutDef;
+    private String m_HighScore;
+    private String m_Username;
+    private int m_ID;
 
-    public Puzzle(String pRawJSon, int puzz, String pPictureSet, int pRows, List<Integer> pLayout){
-        JSON_STRING = pRawJSon;
-        puzzle = puzz;
-        puzzle_PictureSet = pPictureSet;
-        puzzle_Rows = pRows;
-        puzzle_Layout = pLayout;
+    @Override
+    public String toString()
+    {
+        return m_Name;
+    }
+
+    public Puzzle(String pName, String pPictureSet, String pLayoutDef, String pHighScore, int pID, String pUsername)
+    {
+        this.m_Name = pName;
+        this.m_PictureSet = pPictureSet;
+        this.m_LayoutDef = pLayoutDef;
+        this.m_HighScore = pHighScore;
+        this.m_ID = pID;
+        this.m_Username = pUsername;
+    }
+
+    public String Name()
+    {
+        return m_Name;
+    }
+
+    public String Highscore()
+    {
+        return m_HighScore;
+    }
+
+    public String PictureSet()
+    {
+        return m_PictureSet;
+    }
+
+    public String LayoutDef()
+    {
+        return m_LayoutDef;
+    }
+
+    public int ID()
+    {
+        return m_ID;
+    }
+
+    public String Username() {
+        return m_Username;
     }
 }

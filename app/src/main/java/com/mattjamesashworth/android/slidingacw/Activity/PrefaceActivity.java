@@ -14,9 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.mattjamesashworth.android.slidingacw.Class.Handlers.GameHandler;
-import com.mattjamesashworth.android.slidingacw.Class.Handlers.ImageHandler;
-import com.mattjamesashworth.android.slidingacw.Class.Handlers.JsonHandler;
 import com.mattjamesashworth.android.slidingacw.R;
 
 /**
@@ -46,7 +43,6 @@ public class PrefaceActivity extends AppCompatActivity {
         Boolean advance = prefs.getBoolean("keepAlive", false);
 
         if (advance == true) {
-            initGameData();
             retrieveSession();
         }
 
@@ -88,12 +84,13 @@ public class PrefaceActivity extends AppCompatActivity {
                     //Keep user signed in via shared prefs
                     SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putString("username", strUsername);
+                    baseUsername = strUsername;
                     editor.putBoolean("keepAlive", true);
                     editor.apply();
                 }
 
 
-                Intent intent = new Intent(PrefaceActivity.this, PlayActivity.class);
+                Intent intent = new Intent(PrefaceActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -101,19 +98,8 @@ public class PrefaceActivity extends AppCompatActivity {
     }
 
 
-
-
-    private void initGameData() {
-        if( !ImageHandler.m_Init )
-            new ImageHandler(getApplicationContext()); // initialise ImageHandler
-        if( !JsonHandler.m_Init)
-            new JsonHandler(getApplicationContext()); // initialise JsonHandler
-        if( !GameHandler.m_Init )
-            new GameHandler(getApplicationContext(), JsonHandler.getJsonList()); // initialise GameHandler
-    }
-
     private void retrieveSession() {
-        Intent intent = new Intent(PrefaceActivity.this, PlayActivity.class);
+        Intent intent = new Intent(PrefaceActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -121,7 +107,7 @@ public class PrefaceActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(PrefaceActivity.this);
         builder.setTitle("About Sliding ACW");
-        builder.setMessage("Sliding Puzzle used read/write storage permissions for saving of long term saving highscores. \n \nHighscores can be saved without this permission in shared preferences but its recommended you allow storage. \n \nIf you like the game and want to know more, hit the developer button in game to view on Google Play and the source code on github. \n Thanks, Matt.");
+        builder.setMessage("Sliding Puzzle_old used read/write storage permissions for saving of long term saving highscores. \n \nHighscores can be saved without this permission in shared preferences but its recommended you allow storage. \n \nIf you like the game and want to know more, hit the developer button in game to view on Google Play and the source code on github. \n Thanks, Matt.");
         builder.setPositiveButton("Lets Play", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
