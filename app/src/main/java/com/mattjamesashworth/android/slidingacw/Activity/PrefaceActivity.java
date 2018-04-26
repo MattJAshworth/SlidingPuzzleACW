@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,8 +18,8 @@ import android.widget.Toast;
 import com.mattjamesashworth.android.slidingacw.R;
 
 /**
- * Created by mattjashworth on 21/03/2018.
- * Updated by mattjashworth on 23/03/2018, see git log for updates.
+ * Created by MattJAshworth on 21/03/2018.
+ * Last updated by MattJAshworth on 26/04/2018, see git log for updates.
  */
 
 public class PrefaceActivity extends AppCompatActivity {
@@ -53,7 +54,7 @@ public class PrefaceActivity extends AppCompatActivity {
         }
 
         //Background transitions
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.content);
+        ConstraintLayout relativeLayout = (ConstraintLayout) findViewById(R.id.content);
         AnimationDrawable animationDrawable;
         animationDrawable =(AnimationDrawable) relativeLayout.getBackground();
         animationDrawable.setEnterFadeDuration(5000);
@@ -72,11 +73,11 @@ public class PrefaceActivity extends AppCompatActivity {
                 //Validation
                 String strUsername = usernameEntry.getText().toString();
                 if (strUsername.length() < 2) {
-                    Toast.makeText(getApplicationContext(), "Username is too short, try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.shortUsernameValidation), Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (strUsername.length() > 15) {
-                    Toast.makeText(getApplicationContext(), "Username is too long, try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.longUsernameValidation), Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -90,7 +91,7 @@ public class PrefaceActivity extends AppCompatActivity {
                 }
 
 
-                Intent intent = new Intent(PrefaceActivity.this, MainActivity.class);
+                Intent intent = new Intent(PrefaceActivity.this, HolderActivity.class);
                 startActivity(intent);
             }
         });
@@ -99,16 +100,16 @@ public class PrefaceActivity extends AppCompatActivity {
 
 
     private void retrieveSession() {
-        Intent intent = new Intent(PrefaceActivity.this, MainActivity.class);
+        Intent intent = new Intent(PrefaceActivity.this, HolderActivity.class);
         startActivity(intent);
     }
 
     private void showTutorial() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(PrefaceActivity.this);
-        builder.setTitle("About Sliding ACW");
-        builder.setMessage("Sliding Puzzle_old used read/write storage permissions for saving of long term saving highscores. \n \nHighscores can be saved without this permission in shared preferences but its recommended you allow storage. \n \nIf you like the game and want to know more, hit the developer button in game to view on Google Play and the source code on github. \n Thanks, Matt.");
-        builder.setPositiveButton("Lets Play", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.aboutTitle));
+        builder.setMessage(getString(R.string.about));
+        builder.setPositiveButton(getString(R.string.play), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //Dismiss

@@ -3,7 +3,9 @@ package com.mattjamesashworth.android.slidingacw.Class;
 import android.provider.BaseColumns;
 
 /**
- * Created by robda on 14/03/2018.
+ * Created by MattJAshworth on 30/03/2018.
+ * For Sliding Puzzle ACW.
+ * Last updated by MattJAshworth on 26/04/2018, see git log for updates.
  */
 
 public final class PuzzleDBContract

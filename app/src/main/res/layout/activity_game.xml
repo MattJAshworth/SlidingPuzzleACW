@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/animation_list"
-    tools:context="com.mattjamesashworth.android.slidingacw.Activity.gameActivity">
+    tools:context="com.mattjamesashworth.android.slidingacw.Activity.InGameActivity">
 
 
     <Chronometer
-        android:id="@+id/simpleChronometer"
+        android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

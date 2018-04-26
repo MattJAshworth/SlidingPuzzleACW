@@ -1,4 +1,5 @@
-package com.mattjamesashworth.android.slidingacw.Activity;
+package com.mattjamesashworth.android.slidingacw.Fragments;
+
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,11 +10,16 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.mattjamesashworth.android.slidingacw.Activity.PlayActivity;
 import com.mattjamesashworth.android.slidingacw.Class.Handlers.PuzzleDBHandler;
 import com.mattjamesashworth.android.slidingacw.Class.PuzzleDBContract;
 import com.mattjamesashworth.android.slidingacw.R;
@@ -26,8 +32,74 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity
-{
+/**
+ * Created by MattJAshworth on 30/03/2018.
+ * For Sliding Puzzle ACW.
+ * Last updated by MattJAshworth on 26/04/2018, see git log for updates.
+ */
+
+public class HomeFragment extends Fragment {
+
+
+    View rootView;
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+
+    PuzzleDBHandler m_DBHelperRead;
+    PuzzleDBHandler m_DBHelper;
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        rootView = inflater.inflate(R.layout.activity_main, container, false);
+
+        Button downloadPuzzles = (Button) rootView.findViewById(R.id.btn_Download);
+        Button localPuzzles = (Button) rootView.findViewById(R.id.btn_Local);
+
+        downloadPuzzles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ondownloadPuzzles();
+            }
+        });
+
+        localPuzzles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onLocalPuzzles();
+            }
+        });
+
+        m_DBHelperRead = new PuzzleDBHandler(rootView.getContext());
+        m_DBHelper = new PuzzleDBHandler(rootView.getContext());
+
+
+        RadioButton tap = (RadioButton) rootView.findViewById(R.id.radioButton);
+        RadioButton slide = (RadioButton) rootView.findViewById(R.id.radioButton2);
+
+        tap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), getString(R.string.changeMode), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        slide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), getString(R.string.changeMode), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        return rootView;
+    }
+
+
     private class downloadJSON extends AsyncTask<String, String, String>
     {
         protected String doInBackground(String... args)
@@ -110,36 +182,27 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    PuzzleDBHandler m_DBHelper = new PuzzleDBHandler(this);
-    PuzzleDBHandler m_DBHelperRead = new PuzzleDBHandler(this);
+
     ContentValues values = new ContentValues();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-    }
-
-    public void onClickDownloadPuzzles(View view)
+    public void ondownloadPuzzles()
     {
         NetworkInfo info = (NetworkInfo) ((ConnectivityManager)
-                getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+                rootView.getContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
         if (info == null)
         {
-            Toast.makeText(MainActivity.this, "No Network Connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(rootView.getContext(), getString(R.string.noNetwork), Toast.LENGTH_SHORT).show();
         }
         else
         {
-            new downloadJSON().execute(getString(R.string.puzzleIndexURL));
-            Toast.makeText(this, (getString(R.string.downloadedPuzzles)), Toast.LENGTH_SHORT).show();
+            new HomeFragment.downloadJSON().execute(getString(R.string.puzzlesIndexURI));
+            Toast.makeText(rootView.getContext(), (getString(R.string.downloadedPuzzles)), Toast.LENGTH_SHORT).show();
 
         }
     }
 
 
-    public void onClickStoredPuzzles(View view)
+    public void onLocalPuzzles()
     {
         SQLiteDatabase dbread = m_DBHelperRead.getReadableDatabase();
         String[] projection = {
@@ -158,40 +221,14 @@ public class MainActivity extends AppCompatActivity
         );
         if (c.getCount() <= 0)
         {
-            Toast.makeText(this, (getString(R.string.noPuzzlesFound)), Toast.LENGTH_SHORT).show();
+            Toast.makeText(rootView.getContext(), (getString(R.string.noPuzzlesFound)), Toast.LENGTH_SHORT).show();
         }
         else
         {
-            Intent intent = new Intent(this, SelectPuzzleActivity.class);
+            Intent intent = new Intent(rootView.getContext(), PlayActivity.class);
             startActivity(intent);
         }
     }
-    public void onClickHighscore(View view) {
-        SQLiteDatabase dbread = m_DBHelperRead.getReadableDatabase();
-        String[] projection = {
-                PuzzleDBContract.PuzzleEntry._ID,
-                PuzzleDBContract.PuzzleEntry.HIGHSCORE
-        };
 
-        Cursor c = dbread.query(
-                PuzzleDBContract.PuzzleEntry.TABLE_NAME,
-                projection,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-        if (c.getCount() <= 0)
-        {
-            Toast.makeText(this, (getString(R.string.noHighscores)), Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Intent intent = new Intent(this, Highscores.class);
-            startActivity(intent);
-        }
-
-    }
 
 }

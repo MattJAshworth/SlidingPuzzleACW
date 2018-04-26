@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_grey"
+        android:title="@string/navigationHome" />
+
+
+    <item
+        android:id="@+id/navigation_highscores"
+        android:icon="@drawable/ic_highscores_grey"
+        android:title="@string/navigationHighscores" />
+
+    <item
+        android:id="@+id/navigation_leaderboard"
+        android:icon="@drawable/ic_global_grey"
+        android:title="@string/navigationGooglePlayServices"/>
+
+    <item
+        android:id="@+id/navigation_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/navigationLogout"/>
+
+
+</menu>

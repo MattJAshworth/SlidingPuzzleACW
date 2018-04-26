@@ -10,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -37,8 +36,13 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Created by MattJAshworth on 30/03/2018.
+ * For Sliding Puzzle ACW.
+ * Last updated by MattJAshworth on 26/04/2018, see git log for updates.
+ */
 
-public class SelectPuzzleActivity extends AppCompatActivity
+public class PlayActivity extends AppCompatActivity
 {
 
     PuzzleDBHandler m_DBHelper = new PuzzleDBHandler(this);
@@ -105,12 +109,12 @@ public class SelectPuzzleActivity extends AppCompatActivity
                         getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
                 if (info == null)
                 {
-                    Toast.makeText(SelectPuzzleActivity.this, "No Network Connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PlayActivity.this, "No Network Connection", Toast.LENGTH_SHORT).show();
                     getStoredPuzzle(position);
                 }
                 else
                 {
-                    new downloadPuzzleDefinition().execute((getString(R.string.puzzleDefinitionURL)) + position + ".json");
+                    new downloadPuzzleDefinition().execute((getString(R.string.puzzleDefinitionURI)) + position + ".json");
                 }
 
             }
@@ -204,12 +208,12 @@ public class SelectPuzzleActivity extends AppCompatActivity
                                 row4Col1, row4Col2, row4Col3, row4Col4};
 
                         Log.i("infor", "" + puzzleLayout4.length);
-                        Intent intent = new Intent(getApplicationContext(), gameActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), InGameActivity.class);
 
-                        intent.putExtra((getString(R.string.puzzleLayout1)), puzzleLayout1);
-                        intent.putExtra((getString(R.string.puzzleLayout2)), puzzleLayout2);
-                        intent.putExtra((getString(R.string.puzzleLayout3)), puzzleLayout3);
-                        intent.putExtra((getString(R.string.puzzleLayout4)), puzzleLayout4);
+                        intent.putExtra((getString(R.string.puzzleLayoutCombo1)), puzzleLayout1);
+                        intent.putExtra((getString(R.string.puzzleLayoutCombo2)), puzzleLayout2);
+                        intent.putExtra((getString(R.string.puzzleLayoutCombo3)), puzzleLayout3);
+                        intent.putExtra((getString(R.string.puzzleLayoutCombo4)), puzzleLayout4);
                         intent.putExtra((getString(R.string.fullPuzzleLayout)), fullLayout);
                         intent.putExtra((getString(R.string.puzzleImage)), picture);
                         intent.putExtra("puzzle", puzzle);
@@ -277,7 +281,7 @@ public class SelectPuzzleActivity extends AppCompatActivity
 
                 ///Downloads the layout and stores it in a new table in database.
                 ///Downloads the pictures and stores them on the device.
-                String url = (getString(R.string.puzzleLayout)) + layout;
+                String url = (getString(R.string.puzzlesLayoutURI)) + layout;
                 stream = (InputStream) new URL(url).getContent();
                 reader = new BufferedReader(new InputStreamReader(stream));
                 line = "";
@@ -450,7 +454,7 @@ public class SelectPuzzleActivity extends AppCompatActivity
                         try
                         {
                             Log.i("Image", "Image does not exist");
-                            String image = (getString(R.string.puzzleImageURL)) + picture + "/" + fullLayoutArray[i];
+                            String image = (getString(R.string.puzzlesImageURI)) + picture + "/" + fullLayoutArray[i];
 
                             if (fullLayoutArray[i].equals("empty"))
                             {
@@ -489,11 +493,11 @@ public class SelectPuzzleActivity extends AppCompatActivity
         {
             super.onPostExecute(s);
             Log.i("Downloading", "Complete");
-            Intent intent = new Intent(getApplicationContext(), gameActivity.class);
-            intent.putExtra((getString(R.string.puzzleLayout1)), formattedLayoutRow1);
-            intent.putExtra((getString(R.string.puzzleLayout2)), formattedLayoutRow2);
-            intent.putExtra((getString(R.string.puzzleLayout3)), formattedLayoutRow3);
-            intent.putExtra((getString(R.string.puzzleLayout4)), formattedLayoutRow4);
+            Intent intent = new Intent(getApplicationContext(), InGameActivity.class);
+            intent.putExtra((getString(R.string.puzzleLayoutCombo1)), formattedLayoutRow1);
+            intent.putExtra((getString(R.string.puzzleLayoutCombo2)), formattedLayoutRow2);
+            intent.putExtra((getString(R.string.puzzleLayoutCombo3)), formattedLayoutRow3);
+            intent.putExtra((getString(R.string.puzzleLayoutCombo4)), formattedLayoutRow4);
             intent.putExtra((getString(R.string.fullPuzzleLayout)), fullLayoutArray);
             intent.putExtra((getString(R.string.puzzleImage)), picture);
             intent.putExtra("puzzle", puzzle);

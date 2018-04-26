@@ -21,10 +21,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.SelectPuzzleActivity"></activity>
-        <activity android:name=".Activity.gameActivity"></activity>
-        <activity android:name=".Activity.Highscores"></activity>
-        <activity android:name=".Activity.MainActivity"></activity>
+        <activity android:name=".Activity.PlayActivity"></activity>
+        <activity android:name=".Activity.InGameActivity"></activity>
+        <activity android:name=".Activity.HolderActivity"></activity>
 
 
     </application>

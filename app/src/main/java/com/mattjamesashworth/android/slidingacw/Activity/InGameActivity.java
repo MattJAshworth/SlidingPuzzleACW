@@ -10,24 +10,28 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Chronometer;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mattjamesashworth.android.slidingacw.Class.GridAdapter;
 import com.mattjamesashworth.android.slidingacw.Class.Handlers.PuzzleDBHandler;
-import com.mattjamesashworth.android.slidingacw.Class.Puzzle;
 import com.mattjamesashworth.android.slidingacw.Class.PuzzleDBContract;
 import com.mattjamesashworth.android.slidingacw.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class gameActivity extends AppCompatActivity
+/**
+ * Created by MattJAshworth on 30/03/2018.
+ * For Sliding Puzzle ACW.
+ * Last updated by MattJAshworth on 26/04/2018, see git log for updates.
+ */
+
+
+
+public class InGameActivity extends AppCompatActivity
 {
     int playerScore = 100;
     int rows = 3;
@@ -62,32 +66,16 @@ public class gameActivity extends AppCompatActivity
 
     GridView gridView;
     Bitmap bitmapA;
-    Chronometer simpleChronometer;
-    GridAdapter adapter = new GridAdapter(gameActivity.this, tiles);
+    Chronometer chronometer;
+    GridAdapter adapter = new GridAdapter(InGameActivity.this, tiles);
 
     public static final String Shared_Pref = "timer";
     public static final String currentTime = "currentTime";
 
     String username;
 
-
-
-    private long resumeTime;
     String puzzle1;
 
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-        simpleChronometer.stop();
-    }
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        simpleChronometer.start();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -103,7 +91,7 @@ public class gameActivity extends AppCompatActivity
         }
 
         getStringIntent();
-        initaliseMultArray(); //Initialises a Multidimensional Array to be used to call each bitmap easily.
+        initArray(); //Initialises a Multidimensional Array to be used to call each bitmap easily.
         
         //Creates the grid by using the multidimensional array
         if (puzzleRow4 != null)
@@ -120,11 +108,11 @@ public class gameActivity extends AppCompatActivity
         }
         drawGrid();
 
-        simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer); // initiate a chronometer
-        simpleChronometer.setBase(SystemClock.elapsedRealtime());
-        simpleChronometer.start();
+        chronometer = (Chronometer) findViewById(R.id.simpleChronometer); // initiate a chronometer
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
 
-        adapter = new GridAdapter(gameActivity.this, tiles);
+        adapter = new GridAdapter(InGameActivity.this, tiles);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -132,7 +120,7 @@ public class gameActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
             {
                 checkMove(position);
-                initaliseMultArray();
+                initArray();
                 checkWin();
                 drawGrid();
                 gridView.setAdapter(adapter);
@@ -143,10 +131,10 @@ public class gameActivity extends AppCompatActivity
     protected void getStringIntent()
     {
         Intent intent = getIntent();
-        puzzleRow1 = intent.getStringArrayExtra((getString(R.string.puzzleLayout1)));
-        puzzleRow2 = intent.getStringArrayExtra((getString(R.string.puzzleLayout2)));
-        puzzleRow3 = intent.getStringArrayExtra((getString(R.string.puzzleLayout3)));
-        puzzleRow4 = intent.getStringArrayExtra((getString(R.string.puzzleLayout4)));
+        puzzleRow1 = intent.getStringArrayExtra((getString(R.string.puzzleLayoutCombo1)));
+        puzzleRow2 = intent.getStringArrayExtra((getString(R.string.puzzleLayoutCombo2)));
+        puzzleRow3 = intent.getStringArrayExtra((getString(R.string.puzzleLayoutCombo3)));
+        puzzleRow4 = intent.getStringArrayExtra((getString(R.string.puzzleLayoutCombo4)));
 
         fullLayout = intent.getStringArrayExtra((getString(R.string.fullPuzzleLayout)));
         puzzlePicture = intent.getStringExtra((getString(R.string.puzzleImage)));
@@ -199,7 +187,7 @@ public class gameActivity extends AppCompatActivity
 
     }
 
-    protected void initaliseMultArray()
+    protected void initArray()
     {
         columns = puzzleRow1.length;
 
@@ -253,15 +241,15 @@ public class gameActivity extends AppCompatActivity
     private void showElapsedTime()
     {    ContentValues values = new ContentValues();
         values.clear();
-        simpleChronometer.stop();
-        long elapsedMillis = SystemClock.elapsedRealtime() - simpleChronometer.getBase();
+        chronometer.stop();
+        long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
         elapsedMillis = elapsedMillis / 1000;
         playerScore -= elapsedMillis;
         if (playerScore <= 0)
         {
             playerScore = 0;
         }
-        Toast.makeText(getApplicationContext(), getString(R.string.win) + playerScore + getString(R.string.points), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.puzzleCompleted) + " " + playerScore + " " + getString(R.string.points), Toast.LENGTH_LONG).show();
 
         SQLiteDatabase db = m_DBHelperRead.getWritableDatabase();
 
@@ -426,6 +414,20 @@ public class gameActivity extends AppCompatActivity
                 }
             }
         }
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        chronometer.stop();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        chronometer.start();
     }
 
 }

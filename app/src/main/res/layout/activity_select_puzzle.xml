@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="50dp"
-    tools:context="com.mattjamesashworth.android.slidingacw.Activity.SelectPuzzleActivity">
+    tools:context="com.mattjamesashworth.android.slidingacw.Activity.PlayActivity">
 
 
     <ListView

@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="MJATheme" parent="@android:style/Theme.Holo.Light"></style>
+
+
 </resources>

@@ -1,10 +1,15 @@
-package com.mattjamesashworth.android.slidingacw.Activity;
+package com.mattjamesashworth.android.slidingacw.Fragments;
+
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.mattjamesashworth.android.slidingacw.Class.Handlers.PuzzleDBHandler;
 import com.mattjamesashworth.android.slidingacw.Class.Puzzle;
@@ -14,13 +19,27 @@ import com.mattjamesashworth.android.slidingacw.R;
 
 import java.util.ArrayList;
 
-public class Highscores extends AppCompatActivity {
+/**
+ * Created by MattJAshworth on 30/03/2018.
+ * For Sliding Puzzle ACW.
+ * Last updated by MattJAshworth on 26/04/2018, see git log for updates.
+ */
+
+public class Highscore extends Fragment {
+
+    View rootView;
+
+
+    public Highscore() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_highscores);
-        SQLiteDatabase db = new PuzzleDBHandler(this).getReadableDatabase();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.activity_highscores, container, false);
+        SQLiteDatabase db = new PuzzleDBHandler(rootView.getContext()).getReadableDatabase();
         String[] projection = {
                 PuzzleDBContract.PuzzleEntry._ID,
                 PuzzleDBContract.PuzzleEntry.COLUMN_NAME_NAME,
@@ -70,10 +89,12 @@ public class Highscores extends AppCompatActivity {
             puzzleList123.add(formattedList);
         }
         c.close();
-        PuzzleAdapter adapter = new PuzzleAdapter(this, android.R.layout.simple_list_item_1, puzzleList123);
-        final ListView listView = (ListView) findViewById(R.id.highscore);
+        PuzzleAdapter adapter = new PuzzleAdapter(rootView.getContext(), android.R.layout.simple_list_item_1, puzzleList123);
+        final ListView listView = (ListView) rootView.findViewById(R.id.highscore);
         listView.setAdapter(adapter);
 
 
+        return rootView;
     }
+
 }

@@ -1,38 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sliding Puzzle ACW</string>
     <string name="author">by Matt J Ashworth</string>
-    <string name="button_back">Terug</string>
-    <string name="button_play">Speel</string>
-    <string name="exit">Exit</string>
-    <string name="gamemode_click">Klik Mode</string>
-    <string name="high_score">Hoogscore</string>
-    <string name="gamemode_drag">Drag Mode</string>
-    <string name="score">Score</string>
-    <string name="puzzle">Puzzel</string>
-    <string name="select_gamemode">Kies Gamemode</string>
-    <string name="select_puzzle">Kies een Puzzel</string>
-    <string name="selected_puzzle">Gekozen Puzzel</string>
-    <string name="server_puzzles">Dowload Puzzel</string>
-    <string name="start">Begin</string>
-    <string name="local_puzzles">Lokaal Puzzel</string>
-    <string name="button_download_puzzles">Krijg meer puzzels</string>
-    <string name="cards">Kaart</string>
-    <string name="download">Download</string>
-    <string name="cancel">Annuleer</string>
-    <string name="dialog_description">Wil je deze puzzel downloaden:</string>
-    <string name="dialog_download_title">Download puzzel</string>
-    <string name="images_download_complete">Afbeelding download compleet</string>
-    <string name="puzzle_download_complete">Puzzel download compleet</string>
-    <string name="new_highscore">Nieuw Hoogescore!</string>
-    <string name="puzzle_completed">Puzzel Klaar</string>
-    <string name="puzzle_continue">Continue</string>
-    <string name="replay">Replay</string>
-    <string name="puzzle_filter_by">Puzzel Filter op</string>
-    <string name="played_never">Nooit Gespeelt</string>
-    <string name="played_before">Gespeelt</string>
-    <string name="one"></string>
-    <string name="more_then_24_cards">Meer dan 24 kaarten</string>
-    <string name="less_then_24_cards">Minder dan 24 kaarten</string>
-    <string name="none">Geen</string>
+
+
+    //Login
+    <string name="shortUsernameValidation">Gebruikersnaam is te kort, probeer het opnieuw</string>
+    <string name="longUsernameValidation">Gebruikersnaam is te lang, probeer het opnieuw</string>
+    <string name="textEntry">Topscores gebruikersnaam</string>
+    <string name="keepAlive">Blijf ingelogd</string>
+    <string name="playIntent">Speel Sliding ACW</string>
+
+    //Tutorial
+    <string name="aboutTitle">Over het glijden ACW</string>
+    <string name="about">Over Sliding ACWSliding Puzzle_old gebruikte lees / schrijfopslagrechten voor het opslaan van langetermijnbesparende highscores. \ n Topscores kunnen zonder deze toestemming worden opgeslagen in gedeelde voorkeuren, maar het is raadzaam opslagruimte toe te staan. \ n Als je de game leuk vindt en meer wilt weten, druk dan op de ontwikkelaarsknop in het spel om deze te bekijken op Google Play en de broncode op github. \ n \ n Bedankt, Matt.</string>
+    <string name="play">laten we gaan spelen</string>
+
+    //Main app
+    <string name="puzzlesIndexURI">http://www.simongrey.net/08027/slidingPuzzleAcw/index.json</string>
+    <string name="puzzlesLayoutURI">http://www.simongrey.net/08027/slidingPuzzleAcw/layouts/</string>
+    <string name="puzzlesImageURI">http://www.simongrey.net/08027/slidingPuzzleAcw/images/</string>
+    <string name="downloadedPuzzles">Gedownloade puzzels</string>
+    <string name="noPuzzlesFound">Geen puzzels gevonden op je apparaat, download puzzels om door te gaan</string>
+    <string name="puzzleLayoutCombo1">puzzleLayouCombo1</string>
+    <string name="puzzleLayoutCombo2">puzzleLayoutCombo2</string>
+    <string name="puzzleLayoutCombo3">puzzleLayoutCombo3</string>
+    <string name="puzzleLayoutCombo4">puzzleLayoutCombo4</string>
+    <string name="fullPuzzleLayout">fullPuzzleLayout</string>
+    <string name="puzzleImage">puzzleImage</string>
+    <string name="puzzleDefinitionURI">http://www.simongrey.net/08027/slidingPuzzleAcw/puzzles/puzzle</string>
+    <string name="puzzleCompleted">Gefeliciteerd, je hebt gewonnen en gescoord</string>
+    <string name="points"> points</string>
+    <string name="noNetwork">Geen netwerk gedetecteerd</string>
+    <string name="download_puzzles">Puzzels downloaden</string>
+    <string name="local_puzzles">Lokale puzzels</string>
+    <string name="highscores">Topscores</string>
+    <string name="regexReplaceMisc">[^empty 1-9\\],]</string>
+    <string name="noHighscores">Geen highscores, vul alsjeblieft een puzzel in</string>
+    <string name="changeMode">De wijzigingsmodus is op dit moment niet beschikbaar</string>
+    <string name="navigationNoHighscores">Plaats een highscore voordat je het highscore-bord bekijkt</string>
+    <string name="globalLeaderboards">Global Leaderboards zijn niet beschikbaar in de demo-app, zie Google Play Edition voor competitieve klassementen</string>
+
+
+    //Navigation strings
+    <string name="navigationHome">Huis</string>
+    <string name="navigationHighscores">Topscores</string>
+    <string name="navigationGooglePlayServices">Leaderboards</string>
+    <string name="navigationLogout">uitloggen</string>
+
+
+
 </resources>

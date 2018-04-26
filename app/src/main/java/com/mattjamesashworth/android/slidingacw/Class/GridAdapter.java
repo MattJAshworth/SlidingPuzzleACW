@@ -10,6 +10,12 @@ import android.widget.ImageView;
 
 import com.mattjamesashworth.android.slidingacw.R;
 
+/**
+ * Created by MattJAshworth on 30/03/2018.
+ * For Sliding Puzzle ACW.
+ * Last updated by MattJAshworth on 26/04/2018, see git log for updates.
+ */
+
 public class GridAdapter extends BaseAdapter
 {
 
